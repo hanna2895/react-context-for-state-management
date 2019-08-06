@@ -18,14 +18,18 @@ class App extends React.Component {
   };
 
   render() {
-    return this.state.currentUser ? (
-      <UserContext.Provider value={this.state.currentUser}>
-        <MainPage
-          onLogout={this.handleLogout}
-        />
+    return (
+      <UserContext.Provider value={{
+        user: this.state.currentUser,
+        onLogin: this.handleLogin,
+        onLogout: this.handleLogout,
+      }}>
+        {this.state.currentUser ? (
+          <MainPage />
+        ) : (
+          <LoginPage onLogin={this.handleLogin} />
+        )}
       </UserContext.Provider>
-    ) : (
-      <LoginPage onLogin={this.handleLogin} />
     );
   }
 }
